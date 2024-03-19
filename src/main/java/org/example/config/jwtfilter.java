@@ -1,6 +1,5 @@
 package org.example.config;
 
-import org.example.Service.TokenService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -36,15 +35,16 @@ public class jwtfilter extends GenericFilterBean {
             filterChain.doFilter(req,res);
         }
         else{
-            Integer id = new Integer(tokenService.getUserToken(token));
-            httpServletRequest.setAttribute("userId","id");
+            String id = (tokenService.getUserToken(token));
+            httpServletRequest.setAttribute("userId",id);
             filterChain.doFilter(req , res);
         }
     }
 
     public boolean allowRequestWithoutToken(HttpServletRequest httpServletRequest) {
         System.out.println(httpServletRequest.getRequestURI());
-        if(httpServletRequest.getRequestURI().contains("/user")) return true;
-        return false;
+        return true;
+//        if(httpServletRequest.getRequestURI().contains("/user") && !httpServletRequest.getRequestURI().contains("/delete") && !httpServletRequest.getRequestURI().contains("/update") ) return true;
+//        return false;
     }
 }
