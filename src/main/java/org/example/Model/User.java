@@ -12,8 +12,6 @@ import org.bson.types.ObjectId;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-
-
 public class User {
 
     @JsonSerialize(using = ToStringSerializer.class)

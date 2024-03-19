@@ -39,7 +39,7 @@ public class UserService {
 
     public Object userLogin(String email, String password ) {
         boolean foundUsers = existByEmail(email);
-        HashMap<String,String> response=new HashMap<>();
+        HashMap<String,Object> response=new HashMap<>();
         if(foundUsers) {
             User user = userRepository.getUserByUserName(email);
             if(user.getPassword().equals(password)) {
@@ -53,6 +53,7 @@ public class UserService {
 //                        "\"token\":"+tokenService.createTokenFunction(user.getId())+"\n"+
 //                        "}"
 //                        ;
+                response.put("logged",true);
                 response.put("username",user.getUsername());
                 response.put("message","Successfully logged in");
                 response.put("email",user.getEmail());
@@ -61,6 +62,7 @@ public class UserService {
 
             }
         }
+        response.put("logged", false);
         response.put("message","Authentication Failed");
         return  response;
     }
